@@ -7,6 +7,13 @@ Download data from this link-
 https://drive.google.com/file/d/1NLSYOpgGfpnD2ojJlklFmHcicuV3prko/view?usp=sharing
 
 Same link is given in document.
+
+The highest frequency comes when we select the data with Univariate Feature Selection method (1st Method)
+and the algorithm is Gradient Boosting Classifier with accuracy of 90.33%.
+You can comment the other methods in the acuu function except Gradient Boosting Classifier beacouse they
+are only for checking accuracy, othersiwse the program can take upto 30 minutes to
+to give the final output.
+Thankyou.
 '''
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -47,75 +54,6 @@ train1 = n.fit_transform(train1)
 
 def acuu(x ,y):
     l =[]
-    # from sklearn.model_selection import KFold
-    # from sklearn.model_selection import cross_val_score
-    #
-    #
-    # kfold = KFold(n_splits=10, random_state=7)
-    #
-    # # 1) Spot Checking for logistic regression
-    # # ==========================================
-    #
-    # from sklearn.linear_model import LogisticRegression
-    #
-    # model = LogisticRegression()
-    # result = cross_val_score(model, X, Y, cv=kfold)
-    # print("Validation Score for Logistic Regression : ", result.mean())
-    # l.append(result.mean())
-    #
-    # # 2) Spot Checking for LDA
-    # # ========================
-    #
-    # from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-    #
-    # model = LinearDiscriminantAnalysis()
-    # result = cross_val_score(model, X, Y, cv=kfold)
-    # print("Validation Score for Linear Discriminant Analysis : ", result.mean())
-    # l.append(result.mean())
-    #
-    # # 3) Spot Checking for kNN
-    # # ========================
-    #
-    # from sklearn.neighbors import KNeighborsClassifier
-    #
-    # model = KNeighborsClassifier()
-    # result = cross_val_score(model, X, Y, cv=kfold)
-    # print("Validation Score for KNN: ", result.mean())
-    # l.append(result.mean())
-    #
-    # # $)Spot Check for Naive BAyes
-    # # =========================
-    #
-    # from sklearn.naive_bayes import GaussianNB
-    #
-    # model = GaussianNB()  # conditional probability
-    # result = cross_val_score(model, X, Y, cv=kfold)
-    # print("Validation for Naive Bayes : ", result.mean())
-    # l.append(result.mean())
-    #
-    # # 5) Spot checking for Classification and Regression Tress
-    # # (Cartb or just decision tree)
-    # # Cart or decision tree construct a binary tree from trainin data
-    # # ================================================================
-    #
-    # from sklearn.tree import DecisionTreeClassifier
-    #
-    # model = DecisionTreeClassifier()
-    # result = cross_val_score(model, X, Y, cv=kfold)
-    # print("Valiation Score for Cart Decision Tree : ", result.mean())
-    # l.append(result.mean())
-    #
-    # # 6) Spot Checking for Support Vector Machine
-    # # SVM seek a line whch saparates two classes
-    # # Those data instances that are closest to the line that best sparates the classes are called support vectors and influence where the line is placed.
-    # # =====================================================================
-    #
-    # # from sklearn.svm import SVC
-    # # model = SVC()
-    # # result = cross_val_score(model, X, Y, cv=kfold)
-    # # print("Validation Score for SVM: ", result.mean())
-    # # l.append(result.mean())
-    #print(l)
     from sklearn.metrics import accuracy_score
     from sklearn.model_selection import train_test_split
     x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.33, random_state=7)
@@ -249,6 +187,7 @@ def acuu(x ,y):
     print("MODEL-10: Accuracy of GradientBoostingClassifier : ", acc_gbk)
     l.append(acc_gbk)
 
+# 1) Univarite Feature Selection
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
 
@@ -256,6 +195,8 @@ test = SelectKBest(score_func=chi2, k=11)        # k is number of features
 fit = test.fit(train1, train["label"])
 train2 = test.transform(train1)
 acuu(train2, train["label"])
+
+# 2) Recursive Feature Elimination
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
@@ -266,21 +207,14 @@ fit = rfe.fit(train1, train["label"])
 train2 = fit.transform(train1)
 acuu(train2, train["label"])
 
+# 3) Principal Component Analysis
+
 from sklearn.decomposition import PCA
 pca = PCA(11)
 fit = pca.fit(train1, train["label"])
 train2 = pca.transform(train1)
 acuu(train2, train["label"])
 
-
-'''
-the highest frequency comes when we are selecting the data with Univariate Feature Selection method (1st Method)
-and the algorithm is Stochastic Gradient Descent with accuracy of 90.33%.
-You can comment the other methods in the acuu function except Stochastic Gradient Descent beacouse they
-are only for checking accuracy, othersiwse the program can take upto 30 minutes to
-to give the final output.
-Thankyou.
-'''
 
 
 
