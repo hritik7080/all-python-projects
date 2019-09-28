@@ -103,39 +103,7 @@ def acuu(x, y):
     fit = Normalizer().fit(x_train)
     x_train = fit.fit_transform(x_train)
 
-    # # MODEL-1) LogisticRegression
-    # # ------------------------------------------
-    # from sklearn.linear_model import LogisticRegression
-    #
-    # logreg = LogisticRegression()
-    # logreg.fit(x_train, y_train)
-    # y_pred = logreg.predict(x_val)
-    # acc_logreg = round(accuracy_score(y_pred, y_val) * 100, 2)
-    # print("MODEL-1: Accuracy of LogisticRegression : ", acc_logreg)
-    # l.append(acc_logreg)
 
-    # # MODEL-2) Gaussian Naive Bayes
-    # # ------------------------------------------
-    # from sklearn.naive_bayes import GaussianNB
-    #
-    # gaussian = GaussianNB()
-    # gaussian.fit(x_train, y_train)
-    # y_pred = gaussian.predict(x_val)
-    # acc_gaussian = round(accuracy_score(y_pred, y_val) * 100, 2)
-    # print("MODEL-2: Accuracy of GaussianNB : ", acc_gaussian)
-    # l.append(acc_gaussian)
-
-    # from sklearn.svm import SVC
-    #
-    # svc = SVC()
-    # svc.fit(x_train, y_train)
-    # y_pred = svc.predict(x_val)
-    # acc_svc = round(accuracy_score(y_pred, y_val) * 100, 2)
-    # print("MODEL-1: Accuracy of Support Vector Machines : ", acc_svc)
-    # l.append(acc_svc)
-    # acc_svck = cross_val_score(svc, x_val, y_val, cv=10, scoring='accuracy')
-    # print("MODEL-1: Accuracy of Support Vector Machines by k-fold : ", round(acc_svck.mean() *100,2))
-    # k.append( round(acc_svck.mean() *100,2))
 
     # MODEL-4) Linear SVC
     # ------------------------------------------
@@ -165,28 +133,7 @@ def acuu(x, y):
     print("MODEL-3: Accuracy of Support Vector Machines by k-fold : ", round(acc_perceptronk.mean() * 100, 2))
     k.append(round(acc_perceptronk.mean() * 100, 2))
 
-    # # MODEL-6) Decision Tree Classifier
-    # # ------------------------------------------
-    # from sklearn.tree import DecisionTreeClassifier
-    #
-    # decisiontree = DecisionTreeClassifier()
-    # decisiontree.fit(x_train, y_train)
-    # y_pred = decisiontree.predict(x_val)
-    # acc_decisiontree = round(accuracy_score(y_pred, y_val) * 100, 2)
-    # print("MODEL-6: Accuracy of DecisionTreeClassifier : ", acc_decisiontree)
-    # l.append(acc_decisiontree)
-    #
-    # # MODEL-7) Random Forest
-    # # ------------------------------------------
-    # from sklearn.ensemble import RandomForestClassifier
-    #
-    # randomforest = RandomForestClassifier()
-    # randomforest.fit(x_train, y_train)
-    # y_pred = randomforest.predict(x_val)
-    # acc_randomforest = round(accuracy_score(y_pred, y_val) * 100, 2)
-    # print("MODEL-7: Accuracy of RandomForestClassifier : ", acc_randomforest)
-    # l.append(acc_randomforest)
-
+   
     # MODEL-8) KNN or k-Nearest Neighbors
     # ------------------------------------------
     from sklearn.neighbors import KNeighborsClassifier
@@ -215,17 +162,7 @@ def acuu(x, y):
     print("MODEL-5: Accuracy of Support Vector Machines by k-fold : ", round(acc_sgdk.mean() * 100, 2))
     k.append(round(acc_sgdk.mean() * 100, 2))
 
-    # # MODEL-10) Gradient Boosting Classifier
-    # # ------------------------------------------
-    # from sklearn.ensemble import GradientBoostingClassifier
-    #
-    # gbk = GradientBoostingClassifier()
-    # gbk.fit(x_train, y_train)
-    # y_pred = gbk.predict(x_val)
-    # acc_gbk = round(accuracy_score(y_pred, y_val) * 100, 2)
-    # print("MODEL-10: Accuracy of GradientBoostingClassifier : ", acc_gbk)
-    # l.append(acc_gbk)
-
+   
     # MODEL-6) XGBoost
     from xgboost import XGBClassifier
     classifier = XGBClassifier()
@@ -256,121 +193,89 @@ def acuu(x, y):
 
 
 
-# acuu(dataX,dataY)
-# #--------------------------------------------------------------------------------------------------------------------
+acuu(dataX,dataY)
+#--------------------------------------------------------------------------------------------------------------------
+
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+
+test = SelectKBest(score_func=chi2, k=17)        # k is number of features
+fit = test.fit(dataX, dataY)
+train2 = test.transform(dataX)
+acuu(train2, dataY)
 #
-# from sklearn.feature_selection import SelectKBest
-# from sklearn.feature_selection import chi2
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import RFE
+
+model = LogisticRegression()
+rfe = RFE(model, 17)
+fit = rfe.fit(dataX, dataY)
+train2 = fit.transform(dataX)
+acuu(train2, dataY)
+
+from sklearn.decomposition import PCA
+
+pca = PCA(17)
+fit = pca.fit(dataX, dataY)
+train2 = pca.transform(dataX)
+acuu(train2, dataY)
+
+import warnings
+
+warnings.filterwarnings("ignore")
+
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+
+lda = LDA(n_components=17)
+fit = lda.fit_transform(dataX, dataY)
+train3 = lda.transform(dataX)
+# fit = lda.fit(X=dataX, y=dataY)
+# train2 = fit.fit_transform(dataX)
+print(train3.shape)
+acuu(train3, dataY)
+
+
+
+#--------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------------
+
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import chi2
+
+test = SelectKBest(score_func=chi2, k=11)        # k is number of features
+fit = test.fit(dataX, dataY)
+train2 = test.transform(dataX)
+acuu(train2, dataY)
 #
-# test = SelectKBest(score_func=chi2, k=17)        # k is number of features
-# fit = test.fit(dataX, dataY)
-# train2 = test.transform(dataX)
-# acuu(train2, dataY)
-# #
-# from sklearn.linear_model import LogisticRegression
-# from sklearn.feature_selection import RFE
-#
-# model = LogisticRegression()
-# rfe = RFE(model, 17)
-# fit = rfe.fit(dataX, dataY)
-# train2 = fit.transform(dataX)
-# acuu(train2, dataY)
-#
-# from sklearn.decomposition import PCA
-#
-# pca = PCA(17)
-# fit = pca.fit(dataX, dataY)
-# train2 = pca.transform(dataX)
-# acuu(train2, dataY)
-#
-# import warnings
-#
-# warnings.filterwarnings("ignore")
-# # from sklearn.ensemble import ExtraTreesClassifier
-# #
-# # model = ExtraTreesClassifier()
-# # model.fit(dataX, dataY)
-# # scores = model.feature_importances_
-# # h = []
-# # for i in range(dataX.shape[1]):
-# #     h.append(i)
-# # s = list(zip(h, scores))
-# # from operator import itemgetter
-# #
-# # s = sorted(s, key=itemgetter(1), reverse=True)
-# # lk = [24, 10, 26, 2, 1, 21, 19, 22, 3, 20, 23]  # best columns[indexes] found by Entra tree cassifier
-# # dataX1 = dataX
-# # dataX1 = dataX1[:, lk]
-# # print(dataX1.shape)
-# # acuu(dataX1, dataY)
-# from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-#
-# lda = LDA(n_components=17)
-# fit = lda.fit_transform(dataX, dataY)
-# train3 = lda.transform(dataX)
-# # fit = lda.fit(X=dataX, y=dataY)
-# # train2 = fit.fit_transform(dataX)
-# print(train3.shape)
-# acuu(train3, dataY)
-#
-#
-#
-# #--------------------------------------------------------------------------------------------------------------------
-# #--------------------------------------------------------------------------------------------------------------------
-#
-# from sklearn.feature_selection import SelectKBest
-# from sklearn.feature_selection import chi2
-#
-# test = SelectKBest(score_func=chi2, k=11)        # k is number of features
-# fit = test.fit(dataX, dataY)
-# train2 = test.transform(dataX)
-# acuu(train2, dataY)
-# #
-# from sklearn.linear_model import LogisticRegression
-# from sklearn.feature_selection import RFE
-#
-# model = LogisticRegression()
-# rfe = RFE(model, 11)
-# fit = rfe.fit(dataX, dataY)
-# train2 = fit.transform(dataX)
-# acuu(train2, dataY)
-#
-# from sklearn.decomposition import PCA
-#
-# pca = PCA(11)
-# fit = pca.fit(dataX, dataY)
-# train2 = pca.transform(dataX)
-# acuu(train2, dataY)
-#
-# import warnings
-#
-# warnings.filterwarnings("ignore")
-# # from sklearn.ensemble import ExtraTreesClassifier
-# #
-# # model = ExtraTreesClassifier()
-# # model.fit(dataX, dataY)
-# # scores = model.feature_importances_
-# # h = []
-# # for i in range(dataX.shape[1]):
-# #     h.append(i)
-# # s = list(zip(h, scores))
-# # from operator import itemgetter
-# #
-# # s = sorted(s, key=itemgetter(1), reverse=True)
-# # lk = [24, 10, 26, 2, 1, 21, 19, 22, 3, 20, 23]  # best columns[indexes] found by Entra tree cassifier
-# # dataX1 = dataX
-# # dataX1 = dataX1[:, lk]
-# # print(dataX1.shape)
-# # acuu(dataX1, dataY)
-# from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-#
-# lda = LDA(n_components=11)
-# fit = lda.fit_transform(dataX, dataY)
-# train3 = lda.transform(dataX)
-# # fit = lda.fit(X=dataX, y=dataY)
-# # train2 = fit.fit_transform(dataX)
-# print(train3.shape)
-# acuu(train3, dataY)
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import RFE
+
+model = LogisticRegression()
+rfe = RFE(model, 11)
+fit = rfe.fit(dataX, dataY)
+train2 = fit.transform(dataX)
+acuu(train2, dataY)
+
+from sklearn.decomposition import PCA
+
+pca = PCA(11)
+fit = pca.fit(dataX, dataY)
+train2 = pca.transform(dataX)
+acuu(train2, dataY)
+
+import warnings
+
+warnings.filterwarnings("ignore")
+
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+
+lda = LDA(n_components=11)
+fit = lda.fit_transform(dataX, dataY)
+train3 = lda.transform(dataX)
+# fit = lda.fit(X=dataX, y=dataY)
+# train2 = fit.fit_transform(dataX)
+print(train3.shape)
+acuu(train3, dataY)
 
 
 
@@ -418,14 +323,7 @@ acuu(train5, dataY)
 
 
 #--------------------------------------------------------------------------------------------------------------------
-# from sklearn.feature_selection import SelectKBest
-# from sklearn.feature_selection import chi2
-#
-# test = SelectKBest(score_func=chi2, k=11)        # k is number of features
-# fit = test.fit(dataX, dataY)
-# train2 = test.transform(dataX)
-# acuu(train2, dataY)
-#
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFE
 
@@ -434,35 +332,12 @@ rfe = RFE(model, 17)
 fit = rfe.fit(dataX, dataY)
 train2 = fit.transform(dataX)
 print("RFE")
-# acuu(train2, dataY)
 
-# from sklearn.decomposition import PCA
-#
-# pca = PCA(11)
-# fit = pca.fit(dataX, dataY)
-# train2 = pca.transform(dataX)
-# acuu(train2, dataY)
 
 import warnings
 
 warnings.filterwarnings("ignore")
-# from sklearn.ensemble import ExtraTreesClassifier
-#
-# model = ExtraTreesClassifier()
-# model.fit(dataX, dataY)
-# scores = model.feature_importances_
-# h = []
-# for i in range(dataX.shape[1]):
-#     h.append(i)
-# s = list(zip(h, scores))
-# from operator import itemgetter
-#
-# s = sorted(s, key=itemgetter(1), reverse=True)
-# lk = [24, 10, 26, 2, 1, 21, 19, 22, 3, 20, 23]  # best columns[indexes] found by Entra tree cassifier
-# dataX1 = dataX
-# dataX1 = dataX1[:, lk]
-# print(dataX1.shape)
-# acuu(dataX1, dataY)
+
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 
 lda = LDA(n_components=11)
