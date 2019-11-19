@@ -1,0 +1,82 @@
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 500px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: rgb(230,92,0); /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+/* .sidenav a{
+  display: block;
+  text-decoration: none;
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: rgb(251, 242, 233);
+} */
+
+.main {
+  margin-left: 500px;
+  /* padding: 0px 10px; */
+  background-color: 	rgb(251, 242, 233);
+}
+
+@media screen and (max-height: 450sssspx) {
+  .sidenav {padding-top: 5px;}
+  .sidenav a {font-size: 18px;}
+}
+.table1{
+  width: 100%;
+  height: 90%;
+}
+.table1 td{
+  font-size: 17px;
+  text-align: center;
+  background-color: 	rgb(251, 242, 233);
+}
+.table1 th{
+  font-size: 50px;
+  font-family: 'Orbitron', sans-serif;
+  padding-bottom: 40px;
+}
+input[type="button"]{
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: rgb(204, 82, 0);
+}
+input[type="button"]:hover{
+  transform: scale(1.05);
+}
+.trans_head{
+  position: fixed;
+  background-color:rgb(230,92,0);
+  width:877px;
+}
+
+.table2{
+  width: 100%;
+}
+.table2 th{
+  width: 500px;
+  border: 3px solid black;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.table2 td{
+  border-bottom:3px solid rgb(230,92,0);
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.table2 thead{position: absolute;}
+.table2 tbody,.table2 thead{display: block;}
+
+.table2 tbody{
+  overflow-y: auto;
+  overflow-x: hidden;
+}

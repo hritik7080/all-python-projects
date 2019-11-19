@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>|| SIGN UP ||</title>
+    <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename='./upStyle.css') }}" />
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:500&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <div class="main_grid">
+      <div class="heading">
+        <center><h1>EASY TICKETS</h1></center>
+      </div>
+      <div class="mid">
+
+        <form class="spage" action="http://localhost:5000/sign" method="post">
+          <table>
+            <tr>
+              <td colspan="2" style="font-size:20px;">WELCOME</td>
+            </tr>
+            <tr>
+              <td>NAME</td>
+              <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+              <td>EMAIL</td>
+              <td><input type="text" name="email"></td>
+            </tr>
+            <tr>
+              <td>PHONE NO.</td>
+              <td><input type="text" name="phone"></td>
+            </tr>
+            <tr>
+              <td>ADDRESS</td>
+              <td><input type="text" name="address"></td>
+            </tr>
+            <tr>
+              <td>PASSWORD</td>
+              <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+              <td colspan="2"><input type="submit" value="SUBMIT"></td>
+            </tr>
+          </table>
+        </form>
+
+      </div>
+    </div>
+
+  </body>
+</html>

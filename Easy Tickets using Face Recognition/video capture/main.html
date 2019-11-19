@@ -1,0 +1,110 @@
+<!DOCTYPE.htlm>
+<html>
+<head>
+  <title>
+  ||HOME||
+  </title>
+  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static', filename='./newStyle.css') }}" />
+    <link href="https://fonts.googleapis.com/css?family=Orbitron:500&display=swap" rel="stylesheet">
+</head>
+<body>
+{% if result==0 %}
+ <script>
+alert("Account not found!!");
+</script>
+{% endif %}
+  <div class="main_grid">
+    <div class="title">
+      <table>
+        <tr class="row1">
+          <td width=85%><h1 style="font-family: 'Orbitron', sans-serif;">Easy Tickets</h1></td>
+        <!--<td class="tabs">Register ID</td>
+          <td class="tabs">Change Id</td>-->
+        </tr>
+      </table>
+    </div>
+<div class="camera">
+      <div id="my_camera"></div>
+
+      <div class="mybutton">
+        <form action="https://localhost:5000/scrap" method="post">
+        <input type="button" value="TAKE A SNAP" onclick="take_snapshot()">
+        </form>
+        <input type="button" id="saveFile" value="LOGIN">
+      </div>
+
+      <div id="results"></div>
+</div>
+    <div class="Login">
+      <table>
+        <tr height=90%>
+          <td width=90% style="font-size: 25px; font-weight: bold;">Traditional Login</td>
+            <td>
+                <form action="http://localhost:5000/su">
+                <input id="button4" type="submit" value="SIGN UP">
+                </form>
+            </td>
+        </tr>
+      </table>
+    </div>
+    <div class="other">
+      <center>
+          <form action="http://localhost:5000/login" method="post">
+        <table class="old_login">
+          <tr>
+<!--              <form action="http://localhost:5000/login" method="post">-->
+            <td id="item2">EMAIL</td>
+            <td><input id="item1" name="email" type="text"></td>
+          </tr>
+          <tr>
+            <td id="item2">PASSWORD</td>
+            <td><input id="item1" name="password" type="password"></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input id="button3" type="submit" value="LOGIN"></td>
+          </tr>
+        </table>
+          </form>
+
+        <form action="http://localhost:5000/image">
+          <input id="mybutton" type="submit" value="" style="background: transparent; border: none" ></input>
+        </form>
+      </center>
+    </div>
+  </div>
+
+<script type="text/javascript" src="../static/webcam.min.js"></script>
+
+<script language="JavaScript">
+ Webcam.set({
+  width: 400,
+  height: 300,
+  image_format: 'png',
+  jpeg_quality: 90
+ });
+ Webcam.attach( '#my_camera' );
+
+function take_snapshot() {
+
+ Webcam.snap( function(data_uri) {
+  document.getElementById('results').innerHTML =
+  '<img id="saveImg"  src="'+data_uri+'"/>';
+  } );
+}
+
+saveFile.onclick=function(){
+  var a=document.createElement('a');
+  a.href=saveImg.src;
+  a.download="input"
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  var b=document.getElementById('mybutton');
+  b.click();
+};
+
+</script>
+
+</body>
+</html>
